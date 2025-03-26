@@ -1,7 +1,8 @@
 const express=require('express');
 const Commande=require('../model/commande');
+const auth=require('../middleware/authMiddleweare')
 const router=express.Router();
-router.get('/',async(req,res)=>{
+router.get('/',auth,async(req,res)=>{
     try{
         const cm= await Commande.find({});
         res.status(201).json(cm)
@@ -12,7 +13,7 @@ router.get('/',async(req,res)=>{
     
 })
 
-router.get('/:id',async(req,res)=>{
+router.get('/:id',auth,async(req,res)=>{
     try{
         const {id}=req.params
         const getCm= await Commande.findById(id);
@@ -27,7 +28,7 @@ router.get('/:id',async(req,res)=>{
     
 })
 
-router.post('/',async(req,res)=>{
+router.post('/',auth,async(req,res)=>{
     try{
         
         const AddCm= await Commande.create(req.body);
@@ -39,7 +40,7 @@ router.post('/',async(req,res)=>{
     
 })
 
-router.patch('/:id',async(req,res)=>{
+router.patch('/:id',auth,async(req,res)=>{
     try{
         const {id}=req.params;
         const updatedData = req.body; 
@@ -56,7 +57,7 @@ router.patch('/:id',async(req,res)=>{
     
 })
 
-router.delete('/:id',async(req,res)=>{
+router.delete('/:id',auth,async(req,res)=>{
     try{
         const  {id}=req.params
         const getCm= await Commande.findByIdAndDelete(id);

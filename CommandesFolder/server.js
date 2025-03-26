@@ -9,5 +9,7 @@ db.on('error',(err)=>console.error(err));
 db.once('open',()=>console.log('connectd to db'))
 app.use(express.json())
 const CommandRouter= require('./routes/commandes');
+const authRouter=require('./routes/auth');
+app.use('auth',authRouter);
 app.use('/commandes',CommandRouter)
 app.listen(3001,()=>console.log('server started on port 3001'))

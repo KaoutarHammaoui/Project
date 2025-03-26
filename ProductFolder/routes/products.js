@@ -1,7 +1,8 @@
 const express=require('express');
 const Product=require('../model/product');
 const router=express.Router();
-router.get('/',async(req,res)=>{
+const auth=require('../middleware/authMiddleware')
+router.get('/',auth,async(req,res)=>{
     try{
         const pr= await Product.find({});
         res.status(201).json(pr)
@@ -12,7 +13,7 @@ router.get('/',async(req,res)=>{
     
 })
 
-router.get('/:id',async(req,res)=>{
+router.get('/:id',auth,async(req,res)=>{
     try{
         const {id}=req.params
         const getPr= await Product.findById(id);
@@ -27,7 +28,7 @@ router.get('/:id',async(req,res)=>{
     
 })
 
-router.post('/',async(req,res)=>{
+router.post('/',auth,async(req,res)=>{
     try{
         
         const AddPr= await Product.create(req.body);
@@ -39,7 +40,7 @@ router.post('/',async(req,res)=>{
     
 })
 
-router.patch('/:id',async(req,res)=>{
+router.patch('/:id',auth,async(req,res)=>{
     try{
         const {id}=req.params;
         const updatedData = req.body; 
@@ -56,7 +57,7 @@ router.patch('/:id',async(req,res)=>{
     
 })
 
-router.delete('/:id',async(req,res)=>{
+router.delete('/:id',auth,async(req,res)=>{
     try{
         const  {id}=req.params
         const getpr= await Commande.findByIdAndDelete(id);

@@ -1,0 +1,13 @@
+version: '3'
+services:
+  commandes:
+    build: ./CommandesFolder
+    ports:
+      - "3001:3001"
+
+  products:
+    build: ./ProductFolder
+    ports:
+      - "3000:3000"
+
+      
